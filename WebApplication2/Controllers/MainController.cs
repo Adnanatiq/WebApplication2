@@ -50,5 +50,33 @@ namespace WebApplication2.Controllers
             }
         }
 
+        [HttpGet]
+        public JsonResult GetStudentById(int id)
+        {
+            var student = Helper.Helper.GetStudentById(id);
+            if (student != null)
+            {
+                return Json(new { success = true, student = student }, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                return Json(new { success = false, message = "Student not found." }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        [HttpPost]
+        public JsonResult DeleteStudentbyId(int id)
+        {
+            bool result = Helper.Helper.DeleteStudentbyId(id);
+            if (result)
+            {
+                return Json(new { success = true, message = "Student deleted successfully." });
+            }
+            else
+            {
+                return Json(new { success = false, message = "Failed to delete student." });
+            }
+        }
+
     }
 }

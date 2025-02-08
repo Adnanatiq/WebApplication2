@@ -94,26 +94,47 @@ namespace WebApplication2.Helper
             }
         }
         public static bool AddStudent(Student student)
- {
-     try
-     {
-         using (var db = GetConnection())
-         {
-             string qry = @"
-         INSERT INTO Student_Data (UserName, Email, Password, Reg_No, Address, Class, Phone_Number, Status)
-         VALUES (@UserName, @Email, @Password, @Reg_No, @Address, @Class, @Phone_Number, @Status)";
+        {
+          try
+          {
+            using (var db = GetConnection())
+            {
+                string qry = @"
+                 INSERT INTO Student_Data (UserName, Email, Password, Reg_No, Address, Class, Phone_Number, Status)
+                 VALUES (@UserName, @Email, @Password, @Reg_No, @Address, @Class, @Phone_Number, @Status)";
 
-             var result = db.Execute(qry, student);
+                 var result = db.Execute(qry, student);
 
-             return result > 0; // returns true if the insertion was successful
-         }
-     }
-     catch (Exception ex)
-     {
-         // Log or display the error
-         Console.WriteLine(ex.Message);
-         return false;
-     }
- }
+               return result > 0; // returns true if the insertion was successful
+            }
+          }
+          catch (Exception ex)
+          {
+             // Log or display the error
+             Console.WriteLine(ex.Message);
+             return false;
+          }
+        }
+
+        public static bool DeleteStudentbyId(int id)
+        {
+            try
+            {
+                using (var db = GetConnection())
+                {
+                    string qry = "DELETE FROM Student_Data WHERE id = @id";
+
+                    var result = db.Execute(qry, new { id = id });
+
+                    return result > 0; // Returns true if deletion was successful
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return false;
+            }
+        }
+
     }
 }
