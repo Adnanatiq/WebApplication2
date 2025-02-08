@@ -8,10 +8,24 @@ namespace WebApplication2.Controllers
 {
     public class StudentController : Controller
     {
-        // GET: Student
-        public ActionResult Student()
+        public ActionResult Student(int id)
         {
-            return View();
+            var teacher = Helper.Helper.GetTeacher();
+            var Student = Helper.Helper.GetStudentById(id);
+            if (Student == null)
+            {
+                ViewBag.ErrorMessage = "Student not found.";
+                return View();
+            }
+            else
+            {
+                ViewBag.Teacher = teacher;
+                //ViewBag.Students = Student;
+
+                return View(Student);
+            }
         }
+
     }
+
 }

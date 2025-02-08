@@ -1,7 +1,6 @@
 ﻿
 
 @model WebApplication2.Models.Student
-
 @{
     ViewBag.Title = "Student";
 }
@@ -177,10 +176,10 @@
                     </nav>
                 </div>
 
-                <div>
-                    <button style="float:right" type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">Add</button>
+                @*<div>
+                        <button style="float:right" type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">Add</button>
 
-                </div>
+                    </div>*@
 
                 <div class="row" style="margin-top:84px">
                     <div class="col-12 grid-margin">
@@ -188,7 +187,14 @@
                             <div class="card-body" style="padding:0px !important">
                                 <br />
                                 <h4 class="card-title ml-3 ">Student Data</h4>
-                                <div class="table-responsive">
+                                <div style="padding:38px">
+                                    <p><span style="font-weight:bold">UserName : </span>@Model.UserName</p><br />
+                                    <p><span style="font-weight:bold">Email : </span>@Model.Email</p><br />
+                                    <p><span style="font-weight:bold">Address : </span>@Model.Address</p><br />
+                                    <p><span style="font-weight:bold">Phone Number : </span>@Model.Phone_Number</p><br />
+                                    <p><span style="font-weight:bold">Class : </span>@Model.Class</p><br />
+                                    <p><span style="font-weight:bold">Status : </span>@Model.Status</p><br />
+                                    <p ><span style="font-weight:bold">Teacher Name : </span>Asad Kamal</p><br />
 
                                 </div>
                             </div>
