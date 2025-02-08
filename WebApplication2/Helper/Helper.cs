@@ -82,8 +82,8 @@ namespace WebApplication2.Helper
             {
                 using (var db = GetConnection())
                 {
-                    string qry = "SELECT * FROM Student_Data WHERE id = @Id";
-                    return db.QueryFirstOrDefault<Student>(qry, new { Id = id });
+                    string qry = "SELECT * FROM Student_Data WHERE id = @id";
+                    return db.QueryFirstOrDefault<Student>(qry, new { id = id });
                 }
             }
             catch (Exception ex)
@@ -93,5 +93,27 @@ namespace WebApplication2.Helper
                 return null;
             }
         }
+        public static bool AddStudent(Student student)
+ {
+     try
+     {
+         using (var db = GetConnection())
+         {
+             string qry = @"
+         INSERT INTO Student_Data (UserName, Email, Password, Reg_No, Address, Class, Phone_Number, Status)
+         VALUES (@UserName, @Email, @Password, @Reg_No, @Address, @Class, @Phone_Number, @Status)";
+
+             var result = db.Execute(qry, student);
+
+             return result > 0; // returns true if the insertion was successful
+         }
+     }
+     catch (Exception ex)
+     {
+         // Log or display the error
+         Console.WriteLine(ex.Message);
+         return false;
+     }
+ }
     }
 }
