@@ -28,19 +28,26 @@ namespace WebApplication2.Controllers
         }
 
         [HttpPost]
-        public ActionResult AddStudent(Student Model)
+        public JsonResult AddStudent(Student model)
         {
-            if (Model.UserName == null || Model.Email == null || Model.Password == null || Model.Reg_No == null || Model.Address == null || Model.Phone_Number == null || Model.Class == null)
+            if (model.UserName == null || model.Email == null || model.Password == null || model.Reg_No == null ||
+                model.Address == null || model.Phone_Number == null || model.Class == null)
             {
-                ViewBag.ErrorMessage = "Plz Fill All The Filed";
-                //return RedirectToAction("Main_Page");
+                return Json(new { success = false, message = "Please fill all the fields." });
+            }
+
+            // Add student to the database using Helper class
+            bool isAdded = Helper.Helper.AddStudent(model);
+            if (isAdded)
+            {
+                var students = Helper.Helper.GetStudent();
+                ViewBag.Students = students;
+                return Json(new { success = true, message = "Student added successfully." });
             }
             else
             {
-                Console.WriteLine(Model);
-
+                return Json(new { success = false, message = "Failed to add student. Please try again." });
             }
-            return View();
         }
 
     }
